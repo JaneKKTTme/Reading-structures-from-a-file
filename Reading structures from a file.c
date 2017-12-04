@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
     if ( argc==2 )
     {
 
-        load(argv[2]);
+        load(argv[1]);
     }
     else
     {
@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
         if ( argc==2 )
         {
 
-            load(argv[2]);
+            load(argv[1]);
         }
         else
         {
