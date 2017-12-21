@@ -1,75 +1,49 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
+#include <locale.h>
 
-struct package
-{
-    int integer;
-    char string[255];
-    float number;
-};
+struct package{
+    char str[256];
+	int integer;
+	float fl;
+} Pack;
 
-int load(char* s)
-{
-    FILE *fp;
-    char *c;
-    int *size;
-    int k, i, n, m = sizeof(int);
+void read_file(char *file_name){
+	FILE *fp = fopen(file_name, "rb");
+	int int_number;
+	float fl_number;
+	char str_number[256];
 
-    size = (int *)malloc(m);
+	if (fp == NULL)
+        {
+            printf("Error opening file");
+            exit(1);
+        }
+    fseek(fp, 0, SEEK_END);
+    long file_size = ftell(fp);
+    rewind(fp);
 
-    if ((fp = fopen(s, "r")) == NULL)
+    while(!feof(fp))
     {
-        perror("File did not opened");
+        fread(&int_number, sizeof(int), 1, fp);
+        fread(&str_number, sizeof(char)*256, 1, fp);
+        fread(&fl_number, sizeof(float), 1, fp);
+        printf("\ninteger number: %d\nString: %s\nFloat number: %f\n", int_number, str_number, fl_number);
     }
-
-    c = (char *)size;
-    while (m>0)
-    {
-        i = getc(fp);
-        if (i==EOF) break;
-        *c=i;
-        c++;
-        m--;
-    }
-
-    n = *size;
-
-    struct package *allsize;
-    allsize = (struct package *)malloc(n *sizeof(struct package));
-    c = (char *)allsize;
-
-    for ( k=0; k<n; k++ )
-    {
-        printf("%4d %256s %4.2f", (allsize+k)->integer, (allsize+k)->string, (allsize+k)->number);
-    }
-
-    free(size);
-    free(allsize);
-    fclose(fp);
-
-    return 0;
+    printf("\nSize of file: %d Byte", file_size);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char **argv)
 {
-    if ( argc==2 )
+    setlocale(LC_ALL, "Rus");
+    if (argc==2)
     {
-
-        load(argv[1]);
+        read_file(argv[1]);
     }
     else
     {
-        printf("Please, tell me the name of file");
-        if ( argc==2 )
-        {
-
-            load(argv[1]);
-        }
-        else
-        {
-        printf("Loser!");
-        }
+        printf("LOSER!");
     }
-
     return 0;
 }
