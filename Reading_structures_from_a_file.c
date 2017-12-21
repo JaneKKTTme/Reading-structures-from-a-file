@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <locale.h>
 
 struct package{
     char str[256];
@@ -36,7 +35,6 @@ void read_file(char *file_name){
 
 int main(int argc, char **argv)
 {
-    setlocale(LC_ALL, "Rus");
     if (argc==2)
     {
         read_file(argv[1]);
