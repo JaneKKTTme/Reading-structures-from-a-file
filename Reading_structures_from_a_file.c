@@ -30,7 +30,7 @@ void read_file(char *file_name){
         fread(&fl_number, sizeof(float), 1, fp);
         printf("\ninteger number: %d\nString: %s\nFloat number: %f\n", int_number, str_number, fl_number);
     }
-    printf("\nSize of file: %d Byte", file_size);
+    printf("\nSize of file: %ld Byte", file_size);
 }
 
 int main(int argc, char **argv)
